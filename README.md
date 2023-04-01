@@ -47,12 +47,21 @@ OpenCV with YOLO has been used for object detection, (results are outstanding in
 
 In this section, the idea is to build object-detection application (using/training YOLO model) on custom data: Tom, Jerry, Cycle and Car.
 
-1. Custom data collection: Gathering images containing the desired objects (Tom, Jerry, Cycle and Car) for the custom dataset. (Only .jpg images are preferred.)
+1. Data(JPEG images) collection: Gathering images containing the desired objects (Tom, Jerry, Cycle and Car) for the custom dataset. (Only .jpg images are preferred.)
 2. Annotation: Annotating the custom dataset using appropriate labeling tools, ensuring the format matches the YoloV3 requirements. The annotation tool for this project can be found here [link](https://github.com/miki998/YoloV3_Annotation_Tool)
-3. Customizing YOLO configuration file and dataset files: Adapting the YOLO configuration file to accommodate the custom dataset, including changes in the number of classes and filters, and updating the class names and train.txt files.
-4. Updating last layer classes and filters: Modifying the last layer to match the number of custom classes (4 in this case) and updating the second last layer filters as 3 * (4 + 1 + 4(4 classes in our project)) = 27.  
-5. Training YoloV3 with PyTorch: Initializing the training with pre-trained weights from the COCO dataset and then re-training the model on the custom dataset, resulting in a customized object detection model for our specific use case.  
+3. Customizing YOLO configuration file and dataset files: These changes have to be made in the custom.data file. In our case, since we have 4 classes the custom.data file looks like this:
+```
+classes=4
+train=data/customdata/custom.txt
+valid=data/customdata/custom.txt
+names=data/customdata/custom.names
 
+```
+4. Updating last layer classes and filters: We need to modify the final layer(classification layers) to match the number of custom classes (4 in this case) and updating the second last layer filters as 3 * (4 + 1 + 4(4 classes in our project)) = 3*9 = 27.  
+5. Training YoloV3 with PyTorch: We shall the use the same weights [weights file](https://drive.google.com/file/d/1vRDkpAiNdqHORTUImkrpD7kK_DkCcMus/view) - COCO dataset. Let's re-train the model on the custom dataset, resulting in  a customized object detection model for our specific use case. 
+
+**Sample training images**
+![Image](./images/train_batch0.png)
 The Colab notebook for this implementation can be found [here](./EVA8_Session12_YOLO_Custom_Data.ipynb).
 
 Link to your YouTube video: [link] (https://www.youtube.com/watch?v=vMwX8SZHqu4)
